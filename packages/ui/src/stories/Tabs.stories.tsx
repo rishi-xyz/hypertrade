@@ -17,12 +17,14 @@ const meta: Meta<typeof Tabs> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    orientation: 'horizontal',
+  },
   argTypes: {
     orientation: {
       control: 'select',
       options: ['horizontal', 'vertical'],
     },
-    defaultValue: 'horizontal',
   },
 };
 

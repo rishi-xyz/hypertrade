@@ -25,7 +25,10 @@
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* React type resolution */
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["src"]
 }
