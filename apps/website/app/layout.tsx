@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AnimationProvider from "@/src/components/provider";
 import { Navbar } from "@/src/components/navbar";
+import { PerformanceOptimizedLayout } from "@/src/components/performance-optimized-layout";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
@@ -34,12 +35,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f4f9fd]`}
       >
-        <AnimationProvider>
-          <Navbar />
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </AnimationProvider>
+        <PerformanceOptimizedLayout>
+          <AnimationProvider>
+            <Navbar />
+            {children}
+            <Analytics />
+            <SpeedInsights />
+          </AnimationProvider>
+        </PerformanceOptimizedLayout>
       </body>
     </html>
   );

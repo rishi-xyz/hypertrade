@@ -5,10 +5,11 @@ import { Badge } from "../ui/badge";
 import { ArrowRight, Play, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 // @ts-ignore
 import LiquidBackground from "threejs-components/build/backgrounds/liquid1.min.js";
+import { useResponsive } from "../../hooks/use-responsive";
 
 const stagger = {
   hidden: {},
@@ -24,10 +25,35 @@ const scaleIn = {
   },
 };
 
+// Hook to detect if screen is medium or larger
+const useIsMediumOrLarger = () => {
+  const [isMediumOrLarger, setIsMediumOrLarger] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMediumOrLarger(window.innerWidth >= 768); // md breakpoint
+    };
+
+    // Initial check
+    checkScreenSize();
+
+    // Add resize listener
+    const handleResize = () => {
+      checkScreenSize();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMediumOrLarger;
+};
+
 export const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { isLargeScreen, shouldReduceMotion, shouldDisableEffects } = useResponsive();
 
   const { scrollYProgress } = useScroll();
 
@@ -40,6 +66,9 @@ export const HeroSection = () => {
 
   /* ---------------- GSAP EFFECTS ---------------- */
   useEffect(() => {
+    // Skip GSAP animations on mobile for performance
+    if (shouldReduceMotion) return;
+    
     const ctx = gsap.context(() => {
       gsap.to(".sparkle-1", {
         y: -20,
@@ -72,11 +101,12 @@ export const HeroSection = () => {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [shouldReduceMotion]);
 
   /* ---------------- LIQUID BACKGROUND ---------------- */
   useEffect(() => {
-    if (!canvasRef.current) return;
+    // Only initialize liquid background on large screens (desktop)
+    if (!isLargeScreen || !canvasRef.current) return;
 
     const liquid = LiquidBackground(canvasRef.current);
 
@@ -89,18 +119,20 @@ export const HeroSection = () => {
     return () => {
       liquid?.dispose?.();
     };
-  }, []);
+  }, [isLargeScreen]);
 
   return (
     <section
       ref={containerRef}
       className="relative overflow-hidden min-h-screen flex items-center"
     >
-      {/* Three.js Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 -z-20 w-full h-full"
-      />
+      {/* Three.js Canvas - Only on large screens (desktop) */}
+      {isLargeScreen && (
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 -z-20 w-full h-full"
+        />
+      )}
 
       {/* Animated Gradients */}
       <div className="absolute inset-0 -z-10">
@@ -109,16 +141,23 @@ export const HeroSection = () => {
       </div>
 
       <motion.div
-        style={{ y: parallaxY, opacity: springOpacity, scale: springScale }}
+        style={{ 
+          // Only apply parallax effects on desktop
+          ...(shouldDisableEffects ? {} : {
+            y: parallaxY, 
+            opacity: springOpacity, 
+            scale: springScale
+          })
+        }}
         variants={stagger}
-        initial="hidden"
+        initial={shouldReduceMotion ? "show" : "hidden"}
         whileInView="show"
         viewport={{ once: true, amount: 0.3 }}
         className="mx-auto max-w-7xl px-6 lg:px-8 py-32 text-center w-full"
       >
         {/* Brand */}
         <motion.h2
-          variants={scaleIn}
+          variants={shouldReduceMotion ? {} : scaleIn}
           className="text-2xl md:text-3xl font-bold mb-8 flex items-center justify-center"
         >
           <TrendingUp className="h-6 w-6 mr-3 text-primary" />
@@ -129,7 +168,7 @@ export const HeroSection = () => {
 
         {/* Badge */}
         <motion.div
-          variants={{
+          variants={shouldReduceMotion ? {} : {
             hidden: { opacity: 0, y: 40 },
             show: { opacity: 1, y: 0, transition: { duration: 0.8 } },
           }}

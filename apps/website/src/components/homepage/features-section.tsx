@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useResponsive } from "../../hooks/use-responsive";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,17 +15,19 @@ gsap.registerPlugin(ScrollTrigger);
 const FeatureImageItem = ({
   feature,
   isActive,
+  shouldReduceMotion,
 }: {
   feature: typeof features[0];
   isActive: boolean;
+  shouldReduceMotion: boolean;
 }) => (
   <motion.div
     className="absolute inset-0 flex items-center justify-center"
-    animate={{
+    animate={shouldReduceMotion ? {} : {
       opacity: isActive ? 1 : 0,
       scale: isActive ? 1 : 0.96,
     }}
-    transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
+    transition={{ duration: shouldReduceMotion ? 0 : 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
   >
     <div className="relative w-full h-full p-8">
       {/* Glow effect */}
@@ -59,6 +62,7 @@ const FeatureTextItem = ({
   isActive: boolean;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const { shouldReduceMotion } = useResponsive();
   const inView = useInView(ref, { margin: "-40% 0px -40% 0px" });
 
   useEffect(() => {
@@ -93,14 +97,14 @@ const FeatureTextItem = ({
           <div className="flex-1 lg:max-w-md">
             <motion.div
               className="relative w-full h-80 lg:h-96 rounded-3xl overflow-hidden"
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ 
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95, y: 20 }}
+              animate={shouldReduceMotion ? {} : { 
                 opacity: inView ? 1 : 0,
                 scale: inView ? 1 : 0.95, 
                 y: inView ? 0 : 20 
               }}
               transition={{
-                duration: 0.6,
+                duration: shouldReduceMotion ? 0 : 0.6,
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
