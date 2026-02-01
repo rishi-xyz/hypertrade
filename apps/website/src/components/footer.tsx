@@ -40,59 +40,6 @@ export const Footer = () => {
                     .to('.footer-container', { scale: 1, duration: 0.1 });
             }
 
-            // Parallax effects for background elements
-            gsap.to('.footer-bg-1', {
-                yPercent: -20,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 2
-                }
-            });
-
-            gsap.to('.footer-bg-2', {
-                yPercent: -10,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: footerRef.current,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 3
-                }
-            });
-
-            // Floating animation for decorative elements
-            gsap.to('.footer-float-1', {
-                y: -15,
-                rotation: 180,
-                duration: 8,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut"
-            });
-
-            gsap.to('.footer-float-2', {
-                y: -10,
-                rotation: -180,
-                duration: 6,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut",
-                delay: 1
-            });
-
-            gsap.to('.footer-float-3', {
-                y: -20,
-                rotation: 360,
-                duration: 10,
-                repeat: -1,
-                yoyo: true,
-                ease: "power1.inOut",
-                delay: 2
-            });
-
             // Social links hover effects
             const socialLinks = footerRef.current?.querySelectorAll('.social-link');
             socialLinks?.forEach(link => {
@@ -134,15 +81,7 @@ export const Footer = () => {
                 });
             }
 
-            // Initial animations
-            const tl = gsap.timeline();
-            tl.fromTo('.footer-brand', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" })
-              .fromTo('.footer-links', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.1, ease: "power2.out" }, "-=0.4")
-              .fromTo('.footer-cta', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.2, ease: "power2.out" }, "-=0.4")
-              .fromTo('.footer-social', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.3, ease: "power2.out" }, "-=0.4")
-              .fromTo('.footer-bottom', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.4, ease: "power2.out" }, "-=0.4");
-
-        }, footerRef);
+            }, footerRef);
 
         return () => ctx.revert();
     }, [shouldDisableParallax]);

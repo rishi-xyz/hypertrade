@@ -23,36 +23,6 @@ export const HeroAnimations = ({ children }: HeroAnimationsProps) => {
       // Skip GSAP animations on mobile for performance
       if (shouldReduceMotion) return;
       
-      // Sparkle animations
-      gsap.to(".sparkle-1", {
-        y: -20,
-        x: 10,
-        duration: 3,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
-
-      gsap.to(".sparkle-2", {
-        y: -15,
-        x: -15,
-        duration: 2.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        delay: 0.5
-      });
-
-      gsap.to(".sparkle-3", {
-        y: -25,
-        x: 5,
-        duration: 3.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-        delay: 1
-      });
-
       // Scroll-based parallax effects
       if (!shouldDisableEffects && containerRef.current) {
         const scrollTl = gsap.timeline({

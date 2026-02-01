@@ -18,75 +18,6 @@ export const HeroSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
-      // Brand logo hover effect
-      const brandLogo = document.querySelector('.brand-logo');
-      if (brandLogo) {
-        brandLogo.addEventListener('mouseenter', () => {
-          gsap.to('.brand-logo', { scale: 1.15, rotate: 15, duration: 0.2 });
-        });
-        brandLogo.addEventListener('mouseleave', () => {
-          gsap.to('.brand-logo', { scale: 1, rotate: 0, duration: 0.2 });
-        });
-      }
-
-      // Brand text animation
-      gsap.to('.brand-text', {
-        backgroundPosition: "0% 50%, 100% 50%, 0% 50%",
-        duration: 3,
-        repeat: -1,
-        ease: "linear"
-      });
-
-      // Badge animations
-      gsap.to('.hero-badge', {
-        boxShadow: "0 0 20px rgba(59, 130, 246, 0.3), 0 0 30px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3)",
-        borderColor: "rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.4), rgba(59, 130, 246, 0.2)",
-        duration: 2,
-        repeat: -1,
-        ease: "easeInOut"
-      });
-
-      gsap.to('.badge-inner', {
-        scale: 1.1,
-        duration: 1.5,
-        repeat: -1,
-        yoyo: true,
-        ease: "easeInOut"
-      });
-
-      // Heading gradient animation
-      gsap.to('.heading-gradient', {
-        backgroundPosition: "0% 50%, 100% 50%, 0% 50%",
-        duration: 4,
-        repeat: -1,
-        ease: "linear"
-      });
-
-      // CTA button shimmer effects
-      gsap.to('.shimmer-primary', {
-        x: "-100%, 200%",
-        duration: 2,
-        repeat: -1,
-        ease: "linear"
-      });
-
-      gsap.to('.shimmer-secondary', {
-        x: "-100%, 200%",
-        duration: 2.5,
-        repeat: -1,
-        ease: "linear"
-      });
-
-      // Initial animations
-      const tl = gsap.timeline();
-      tl.fromTo('.brand-logo', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.7)" })
-        .fromTo('.brand-text', { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, "-=0.4")
-        .fromTo('.hero-badge', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.3")
-        .fromTo('.heading-gradient', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, "-=0.3")
-        .fromTo('.hero-description', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "power2.out" }, "-=0.4")
-        .fromTo('.cta-container', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, delay: 0.4, ease: "power2.out" }, "-=0.4");
-
       // CTA button hover effects
       const ctaButtons = document.querySelectorAll('.cta-button');
       ctaButtons.forEach(button => {
@@ -95,12 +26,6 @@ export const HeroSection = () => {
         });
         button.addEventListener('mouseleave', () => {
           gsap.to(button, { scale: 1, duration: 0.2, ease: "power2.out" });
-        });
-        button.addEventListener('mousedown', () => {
-          gsap.to(button, { scale: 0.98, duration: 0.1, ease: "power2.out" });
-        });
-        button.addEventListener('mouseup', () => {
-          gsap.to(button, { scale: 1.05, duration: 0.1, ease: "power2.out" });
         });
       });
 
@@ -157,11 +82,10 @@ export const HeroSection = () => {
             <Link href={process.env.NEXT_PUBLIC_PLATFORM_LINK || "#"}>
               <Button
                 size="lg"
-                className="relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto overflow-hidden group bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary hover:to-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20"
+                className="cta-button relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary hover:to-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20"
               >
-                <div className="shimmer-primary absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12" />
-                <span className="relative z-10">Get Started</span>
-                <ArrowRight className="ml-3 h-4 w-4 sm:h-5 sm:w-5 relative z-10" />
+                <span>Get Started</span>
+                <ArrowRight className="ml-3 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
             </Link>
           </div>
@@ -171,10 +95,9 @@ export const HeroSection = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto overflow-hidden group bg-linear-to-r from-background via-background/50 to-background border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="cta-button relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto bg-linear-to-r from-background via-background/50 to-background border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                <div className="shimmer-secondary absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent -skew-x-12" />
-                <span className="relative z-10 flex items-center">
+                <span className="flex items-center">
                   <Play className="mr-3 h-4 w-4 sm:h-5 sm:w-5" />
                   Watch Demo
                 </span>
