@@ -37,71 +37,6 @@ export const Navbar = () => {
                 ease: "power1.inOut"
             });
 
-            // Logo hover effect
-            const logoGlow = document.querySelector('.navbar-logo-glow');
-            if (logoGlow) {
-                logoGlow.addEventListener('mouseenter', () => {
-                    gsap.to('.navbar-logo-glow', { 
-                        scale: 1.15, 
-                        rotate: 15,
-                        boxShadow: "0 10px 30px rgba(59, 130, 246, 0.4)",
-                        duration: 0.2 
-                    });
-                });
-                logoGlow.addEventListener('mouseleave', () => {
-                    gsap.to('.navbar-logo-glow', { 
-                        scale: 1, 
-                        rotate: 0,
-                        duration: 0.2 
-                    });
-                });
-            }
-
-            // Brand text hover effect
-            const brandText = document.querySelector('.navbar-brand-text');
-            if (brandText) {
-                brandText.addEventListener('mouseenter', () => {
-                    gsap.to('.navbar-brand-text', { 
-                        backgroundPosition: "0% 50%, 100% 50%, 0% 50%",
-                        scale: 1.05,
-                        duration: 2,
-                        ease: "linear"
-                    });
-                });
-                brandText.addEventListener('mouseleave', () => {
-                    gsap.to('.navbar-brand-text', { 
-                        scale: 1,
-                        duration: 0.2
-                    });
-                });
-            }
-
-            // Platform button hover effect
-            const platformButton = document.querySelector('.platform-button');
-            if (platformButton) {
-                platformButton.addEventListener('mouseenter', () => {
-                    gsap.to('.platform-button', { 
-                        scale: 1.08, 
-                        y: -3,
-                        boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)",
-                        duration: 0.2 
-                    });
-                });
-                platformButton.addEventListener('mouseleave', () => {
-                    gsap.to('.platform-button', { 
-                        scale: 1, 
-                        y: 0,
-                        duration: 0.2 
-                    });
-                });
-                platformButton.addEventListener('mousedown', () => {
-                    gsap.to('.platform-button', { scale: 0.98, duration: 0.1 });
-                });
-                platformButton.addEventListener('mouseup', () => {
-                    gsap.to('.platform-button', { scale: 1.08, duration: 0.1 });
-                });
-            }
-
             // Scroll-based navbar background changes
             if (!shouldDisableEffects) {
                 ScrollTrigger.create({
@@ -119,14 +54,6 @@ export const Navbar = () => {
                     }
                 });
             }
-
-            // Platform button shimmer effect
-            gsap.to('.shimmer-effect', {
-                x: "-100%, 200%",
-                duration: 2,
-                repeat: -1,
-                ease: "linear"
-            });
 
             // Initial animations
             const tl = gsap.timeline();
@@ -149,7 +76,7 @@ export const Navbar = () => {
             <div className="mx-auto max-w-7xl flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center gap-3">
                     <div 
-                        className="navbar-logo-glow relative h-8 w-8 sm:h-9 sm:w-9 rounded-2xl bg-linear-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center shadow-xl border border-primary/20 cursor-pointer"
+                        className="navbar-logo-glow relative h-8 w-8 sm:h-9 sm:w-9 rounded-2xl bg-linear-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center shadow-xl border border-primary/20"
                     >
                         <div 
                             className="navbar-logo-icon"
@@ -158,7 +85,7 @@ export const Navbar = () => {
                         </div>
                     </div>
                     <span 
-                        className="navbar-brand-text text-base sm:text-lg font-bold tracking-tight bg-linear-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent cursor-pointer"
+                        className="navbar-brand-text text-base sm:text-lg font-bold tracking-tight bg-linear-to-r from-foreground via-foreground/90 to-foreground/70 bg-clip-text text-transparent"
                         style={{ backgroundSize: "200% 100%" }}
                     >
                         AutoTrade
@@ -171,10 +98,9 @@ export const Navbar = () => {
                         <Link href={process.env.NEXT_PUBLIC_PLATFORM_LINK || ""}>
                             <Button 
                                 size="lg" 
-                                className="relative rounded-full px-6 shadow-xl overflow-hidden group bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary hover:to-primary/90 border border-primary/20 transition-all duration-300"
+                                className="relative rounded-full px-6 shadow-xl bg-linear-to-r from-primary via-primary/90 to-primary/80 border border-primary/20 transition-all duration-300"
                             >
-                                <div className="shimmer-effect absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12" />
-                                <span className="relative z-10 font-medium">Platform</span>
+                                <span className="font-medium">Platform</span>
                             </Button>
                         </Link>
                     </div>
@@ -184,7 +110,7 @@ export const Navbar = () => {
                 {isMobile && (
                     <button
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                        className="p-2 rounded-lg transition-colors duration-200"
                     >
                         {isMenuOpen ? (
                             <X className="h-5 w-5 text-foreground" />
@@ -206,7 +132,7 @@ export const Navbar = () => {
                         <Link href={process.env.NEXT_PUBLIC_PLATFORM_LINK || ""}>
                             <Button 
                                 size="lg" 
-                                className="w-full rounded-full px-6 shadow-xl overflow-hidden group bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary hover:to-primary/90 border border-primary/20 transition-all duration-300"
+                                className="w-full rounded-full px-6 shadow-xl overflow-hidden group bg-linear-to-r from-primary via-primary/90 to-primary/80 border border-primary/20 transition-all duration-300"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 <span className="relative z-10 font-medium">Platform</span>

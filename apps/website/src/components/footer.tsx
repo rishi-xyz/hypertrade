@@ -184,16 +184,6 @@ export const Footer = () => {
                 <div className="footer-bg-1 absolute inset-0 bg-[radial-gradient(30%_30%_at_50%_50%,oklch(0.65_0.12_210/0.04)_0%,transparent_70%)]" />
             </div>
 
-            {/* Floating decorative elements for GSAP animations */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="footer-sparkle-1 absolute top-10 left-10 text-primary/15">
-                    <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-                </div>
-                <div className="footer-sparkle-2 absolute top-20 right-20 text-primary/10">
-                    <div className="w-1 h-1 bg-primary rounded-full" />
-                </div>
-                <div className="footer-glow absolute bottom-10 left-1/2 transform -translate-x-1/2 w-32 h-32 bg-primary/10 blur-3xl rounded-full" />
-            </div>
 
             <div ref={containerRef} className="footer-container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
                 <div className="space-y-12 sm:space-y-16">

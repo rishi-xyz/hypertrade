@@ -161,7 +161,7 @@ const FeatureTextItem = ({
               <div className="feature-icon h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-linear-to-br from-primary/20 to-primary/5 flex items-center justify-center border border-primary/10 shadow-lg cursor-pointer">
                 <feature.icon className="h-6 w-6 sm:h-7 sm:w-7 text-primary" />
               </div>
-              <span className="feature-label uppercase text-muted-foreground/70 text-xs sm:text-sm font-semibold tracking-wider">
+              <span className="feature-label uppercase text-muted-foreground/80 text-sm sm:text-base font-semibold tracking-wider">
                 {feature.heading}
               </span>
             </div>
@@ -172,7 +172,7 @@ const FeatureTextItem = ({
               </span>
             </h3>
 
-            <p className="feature-description text-base sm:text-lg md:text-xl text-muted-foreground/80 leading-relaxed">
+            <p className="feature-description text-lg md:text-xl text-muted-foreground/80 leading-relaxed">
               {feature.desc}
             </p>
           </div>

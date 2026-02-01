@@ -227,7 +227,7 @@ export const CTASection = () => {
       <div ref={containerRef} className="cta-container mx-auto max-w-6xl px-6 lg:px-8">
         <div className="text-center">
           {/* Main heading with gradient text */}
-          <h2 className="cta-heading text-4xl md:text-6xl lg:text-7xl font-bold bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-8 leading-tight">
+          <h2 className="cta-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-8 leading-tight">
             <span
               className="gradient-text-1 block bg-linear-to-r from-primary via-primary/60 to-primary bg-size-[200%_100%] bg-clip-text text-transparent"
               style={{ backgroundSize: "200% 100%" }}
@@ -243,7 +243,7 @@ export const CTASection = () => {
           </h2>
 
           {/* Description with enhanced styling */}
-          <p className="cta-description mx-auto max-w-4xl text-muted-foreground/80 text-xl md:text-2xl leading-relaxed mb-16">
+          <p className="cta-description mx-auto max-w-4xl text-muted-foreground/80 text-lg md:text-xl leading-relaxed mb-16">
             Join professional traders and funds using AutoTrade to power next‑gen trading strategies with enterprise‑grade infrastructure.
           </p>
 

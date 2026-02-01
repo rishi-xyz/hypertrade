@@ -18,25 +18,6 @@ export const HeroSection = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Brand logo animation
-      gsap.fromTo('.brand-logo', 
-        { rotate: 0, scale: 1 },
-        { 
-          rotate: 360,
-          duration: 8,
-          repeat: -1,
-          ease: "linear"
-        }
-      );
-
-      // Brand logo scale animation
-      gsap.to('.brand-logo', {
-        scale: 1.1,
-        duration: 4,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut"
-      });
 
       // Brand logo hover effect
       const brandLogo = document.querySelector('.brand-logo');
@@ -137,20 +118,6 @@ export const HeroSection = () => {
 
       {/* Client-side animations and interactive elements */}
       <HeroAnimations>
-        {/* Brand */}
-        <div className="text-2xl md:text-3xl font-bold mb-8 flex items-center justify-center">
-          <div
-            className="brand-logo h-8 w-8 md:h-10 md:w-10 mr-3 rounded-2xl bg-linear-to-br from-primary via-primary/80 to-primary/60 flex items-center justify-center shadow-xl cursor-pointer"
-          >
-            <TrendingUp className="h-4 w-4 md:h-5 md:w-5 text-white" />
-          </div>
-          <span 
-            className="brand-text font-extrabold tracking-wide bg-linear-to-r from-primary via-primary/90 to-primary/70 bg-clip-text text-transparent"
-            style={{ backgroundSize: "200% 100%" }}
-          >
-            AutoTrade
-          </span>
-        </div>
 
         {/* Badge */}
         <div 

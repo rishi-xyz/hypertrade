@@ -122,18 +122,6 @@ export const HeroAnimations = ({ children }: HeroAnimationsProps) => {
         />
       )}
 
-      {/* Floating sparkle elements for GSAP animations */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="sparkle-1 absolute top-20 left-10 text-primary/20">
-          <div className="w-2 h-2 bg-primary rounded-full" />
-        </div>
-        <div className="sparkle-2 absolute top-40 right-20 text-primary/15">
-          <div className="w-1.5 h-1.5 bg-primary rounded-full" />
-        </div>
-        <div className="sparkle-3 absolute bottom-40 left-20 text-primary/25">
-          <div className="w-2.5 h-2.5 bg-primary rounded-full" />
-        </div>
-      </div>
 
       <div
         ref={containerRef}
