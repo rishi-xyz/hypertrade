@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "../ui/badge";
-import { ArrowRight, Play, TrendingUp } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { HeroAnimations } from "./hero-animations";

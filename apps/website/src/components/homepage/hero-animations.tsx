@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 // @ts-ignore
 import LiquidBackground from "threejs-components/build/backgrounds/liquid1.min.js";
 import { useResponsive } from "../../hooks/use-responsive";
