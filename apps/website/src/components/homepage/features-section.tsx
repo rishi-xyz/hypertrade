@@ -103,6 +103,7 @@ export const FeatureSection = () => {
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(30%_30%_at_70%_30%,oklch(0.6_0.15_210/0.03)_0%,transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(20%_20%_at_30%_70%,oklch(0.65_0.1_280/0.02)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 opacity-[0.25] [mask-image:radial-gradient(ellipse_at_center,black_55%,transparent_85%)] bg-[linear-gradient(to_right,oklch(0.75_0_0/0.12)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.75_0_0/0.12)_1px,transparent_1px)] bg-[size:56px_56px]" />
       </div>
 
       {/* Header */}
@@ -161,19 +162,18 @@ export const FeatureSection = () => {
         isDesktopActive &&
         createPortal(
           <div className="hidden md:block" style={fixedStyle}>
-            <div className="relative w-full h-full rounded-3xl overflow-hidden bg-linear-to-br from-background/50 to-background/30 border border-border/10 shadow-2xl">
-              <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent" />
-              <div className="relative w-full h-full">
-                <Image
-                  key={activeFeature}
-                  src={features[activeFeature].image}
-                  alt={features[activeFeature].title}
-                  width={900}
-                  height={700}
-                  className="w-full h-full object-contain p-12"
-                  priority
-                />
-              </div>
+            <div className="relative w-full h-full rounded-3xl overflow-hidden bg-linear-to-br from-primary/10 via-background/20 to-background/0">
+              <div className="absolute inset-0 bg-[radial-gradient(40%_35%_at_65%_35%,oklch(0.65_0.15_210/0.18)_0%,transparent_55%)]" />
+              <div className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_at_center,black_45%,transparent_85%)] bg-[linear-gradient(to_right,oklch(0.75_0_0/0.10)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.75_0_0/0.10)_1px,transparent_1px)] bg-[size:48px_48px]" />
+              <Image
+                key={activeFeature}
+                src={features[activeFeature].image}
+                alt={features[activeFeature].title}
+                width={900}
+                height={700}
+                className="relative w-full h-full object-contain p-12"
+                priority
+              />
             </div>
           </div>,
           document.body

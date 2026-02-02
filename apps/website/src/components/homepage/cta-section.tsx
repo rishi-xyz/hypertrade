@@ -227,7 +227,7 @@ export const CTASection = () => {
       <div ref={containerRef} className="cta-container mx-auto max-w-6xl px-6 lg:px-8">
         <div className="text-center">
           {/* Main heading with gradient text */}
-          <h2 className="cta-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-8 leading-tight">
+          <h2 className="cta-heading text-3xl md:text-4xl lg:text-5xl font-bold bg-linear-to-b from-foreground to-foreground/60 bg-clip-text text-transparent mb-6 leading-tight">
             <span
               className="gradient-text-1 block bg-linear-to-r from-primary via-primary/60 to-primary bg-size-[200%_100%] bg-clip-text text-transparent"
               style={{ backgroundSize: "200% 100%" }}
@@ -243,7 +243,7 @@ export const CTASection = () => {
           </h2>
 
           {/* Description with enhanced styling */}
-          <p className="cta-description mx-auto max-w-4xl text-muted-foreground/80 text-lg md:text-xl leading-relaxed mb-16">
+          <p className="cta-description mx-auto max-w-3xl text-muted-foreground/80 text-lg md:text-xl leading-relaxed mb-12">
             Join professional traders and funds using AutoTrade to power next‑gen trading strategies with enterprise‑grade infrastructure.
           </p>
 
@@ -256,14 +256,14 @@ export const CTASection = () => {
                 <Link href={process.env.NEXT_PUBLIC_PLATFORM_LINK || "#"}>
                   <Button
                     size="lg"
-                    className="cta-pulse relative rounded-full px-12 h-16 bg-linear-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-2xl hover:shadow-primary/25 text-lg font-semibold transition-all duration-300 group border-2 border-primary/20"
+                    className="cta-pulse relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto bg-linear-to-r from-primary via-primary/90 to-primary/80 hover:from-primary/90 hover:via-primary hover:to-primary/90 shadow-xl hover:shadow-2xl transition-all duration-300 border border-primary/20 overflow-hidden"
                   >
                     <div className="shimmer-primary-cta absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -skew-x-12" />
                     <span className="relative z-10 flex items-center gap-3">
-                      <Rocket className="w-5 h-5" />
+                      <Rocket className="w-4 h-4 sm:w-5 sm:h-5" />
                       Get Started Now
                       <div className="cta-arrow">
-                        <ArrowRight className="h-5 w-5" />
+                        <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                       </div>
                     </span>
                   </Button>
@@ -277,11 +277,11 @@ export const CTASection = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="relative rounded-full px-12 h-16 bg-background/60 hover:bg-background/80 backdrop-blur-sm border-2 hover:border-primary/50 text-lg font-semibold transition-all duration-300 group overflow-hidden"
+                  className="relative rounded-full px-8 sm:px-12 h-14 sm:h-16 text-base sm:text-lg font-semibold w-full sm:w-auto bg-linear-to-r from-background via-background/50 to-background border-2 border-primary/30 hover:border-primary/50 hover:bg-primary/5 transition-all duration-300 shadow-lg hover:shadow-xl overflow-hidden"
                 >
                   <div className="shimmer-secondary-cta absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent -skew-x-12" />
                   <span className="relative z-10 flex items-center gap-3">
-                    <TrendingUp className="w-5 h-5" />
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
                     View Demo
                   </span>
                 </Button>
