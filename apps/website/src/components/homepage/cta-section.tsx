@@ -13,6 +13,20 @@ export const CTASection = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    const sparkleListeners: Array<{
+      el: Element;
+      onEnter: () => void;
+      onLeave: () => void;
+    }> = [];
+
+    const buttonListeners: Array<{
+      el: Element;
+      onEnter: () => void;
+      onLeave: () => void;
+      onDown: () => void;
+      onUp: () => void;
+    }> = [];
+
     const ctx = gsap.context(() => {
       // Parallax effect for background elements
       gsap.to('.cta-bg-1', {
@@ -157,29 +171,39 @@ export const CTASection = () => {
       // Hover effects for decorative elements
       const sparkles = sectionRef.current?.querySelectorAll('.cta-sparkle');
       sparkles?.forEach(sparkle => {
-        sparkle.addEventListener('mouseenter', () => {
+        const onEnter = () => {
           gsap.to(sparkle, { scale: 1.2, duration: 0.2 });
-        });
-        sparkle.addEventListener('mouseleave', () => {
+        };
+        const onLeave = () => {
           gsap.to(sparkle, { scale: 1, duration: 0.2 });
-        });
+        };
+
+        sparkle.addEventListener('mouseenter', onEnter);
+        sparkle.addEventListener('mouseleave', onLeave);
+        sparkleListeners.push({ el: sparkle, onEnter, onLeave });
       });
 
       // Button hover effects
       const ctaButtons = sectionRef.current?.querySelectorAll('.cta-button-wrapper');
       ctaButtons?.forEach(button => {
-        button.addEventListener('mouseenter', () => {
+        const onEnter = () => {
           gsap.to(button, { scale: 1.05, y: -2, duration: 0.2, ease: "power2.out" });
-        });
-        button.addEventListener('mouseleave', () => {
+        };
+        const onLeave = () => {
           gsap.to(button, { scale: 1, y: 0, duration: 0.2, ease: "power2.out" });
-        });
-        button.addEventListener('mousedown', () => {
+        };
+        const onDown = () => {
           gsap.to(button, { scale: 0.98, duration: 0.1 });
-        });
-        button.addEventListener('mouseup', () => {
+        };
+        const onUp = () => {
           gsap.to(button, { scale: 1.05, duration: 0.1 });
-        });
+        };
+
+        button.addEventListener('mouseenter', onEnter);
+        button.addEventListener('mouseleave', onLeave);
+        button.addEventListener('mousedown', onDown);
+        button.addEventListener('mouseup', onUp);
+        buttonListeners.push({ el: button, onEnter, onLeave, onDown, onUp });
       });
 
       // Initial animations
@@ -190,7 +214,19 @@ export const CTASection = () => {
 
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      sparkleListeners.forEach(({ el, onEnter, onLeave }) => {
+        el.removeEventListener('mouseenter', onEnter);
+        el.removeEventListener('mouseleave', onLeave);
+      });
+      buttonListeners.forEach(({ el, onEnter, onLeave, onDown, onUp }) => {
+        el.removeEventListener('mouseenter', onEnter);
+        el.removeEventListener('mouseleave', onLeave);
+        el.removeEventListener('mousedown', onDown);
+        el.removeEventListener('mouseup', onUp);
+      });
+      ctx.revert();
+    };
   }, []);
 
   return (

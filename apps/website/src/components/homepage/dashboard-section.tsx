@@ -8,6 +8,8 @@ import { Monitor, TrendingUp, BarChart3, Activity, Zap, ArrowRight } from "lucid
 import { Button } from "../ui/button";
 import Link from "next/link";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const DashboardSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
@@ -180,6 +182,8 @@ export const DashboardSection = () => {
       // Cleanup resize listener on unmount
       window.removeEventListener('resize', debouncedResize);
       clearTimeout(resizeTimeout);
+
+      ctx.revert();
     };
   }, []);
 
@@ -223,7 +227,7 @@ export const DashboardSection = () => {
                 width={1200}
                 height={800}
                 className="w-full h-auto rounded-2xl"
-                priority
+                sizes="(min-width: 1024px) 1200px, 100vw"
               />
 
               {/* Subtle overlay gradient */}

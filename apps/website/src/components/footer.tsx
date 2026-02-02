@@ -20,6 +20,18 @@ export const Footer = () => {
     useEffect(() => {
         if (!footerRef.current) return;
 
+        const socialListeners: Array<{
+            el: Element;
+            onEnter: () => void;
+            onLeave: () => void;
+        }> = [];
+
+        const ctaListeners: Array<{
+            el: Element;
+            onEnter: () => void;
+            onLeave: () => void;
+        }> = [];
+
         const ctx = gsap.context(() => {
             // Scroll-based animations
             if (!shouldDisableParallax) {
@@ -43,47 +55,65 @@ export const Footer = () => {
             // Social links hover effects
             const socialLinks = footerRef.current?.querySelectorAll('.social-link');
             socialLinks?.forEach(link => {
-                link.addEventListener('mouseenter', () => {
+                const onEnter = () => {
                     gsap.to(link, { 
                         scale: 1.1, 
                         y: -3,
                         rotation: 5,
                         duration: 0.2 
                     });
-                });
-                link.addEventListener('mouseleave', () => {
+                };
+                const onLeave = () => {
                     gsap.to(link, { 
                         scale: 1, 
                         y: 0,
                         rotation: 0,
                         duration: 0.2 
                     });
-                });
+                };
+
+                link.addEventListener('mouseenter', onEnter);
+                link.addEventListener('mouseleave', onLeave);
+                socialListeners.push({ el: link, onEnter, onLeave });
             });
 
             // CTA button hover effect
             const ctaButton = footerRef.current?.querySelector('.footer-cta');
             if (ctaButton) {
-                ctaButton.addEventListener('mouseenter', () => {
+                const onEnter = () => {
                     gsap.to(ctaButton, { 
                         scale: 1.05, 
                         y: -2,
                         boxShadow: "0 10px 30px rgba(59, 130, 246, 0.3)",
                         duration: 0.2 
                     });
-                });
-                ctaButton.addEventListener('mouseleave', () => {
+                };
+                const onLeave = () => {
                     gsap.to(ctaButton, { 
                         scale: 1, 
                         y: 0,
                         duration: 0.2 
                     });
-                });
+                };
+
+                ctaButton.addEventListener('mouseenter', onEnter);
+                ctaButton.addEventListener('mouseleave', onLeave);
+                ctaListeners.push({ el: ctaButton, onEnter, onLeave });
             }
 
             }, footerRef);
 
-        return () => ctx.revert();
+        return () => {
+            socialListeners.forEach(({ el, onEnter, onLeave }) => {
+                el.removeEventListener('mouseenter', onEnter);
+                el.removeEventListener('mouseleave', onLeave);
+            });
+            ctaListeners.forEach(({ el, onEnter, onLeave }) => {
+                el.removeEventListener('mouseenter', onEnter);
+                el.removeEventListener('mouseleave', onLeave);
+            });
+            ctx.revert();
+        };
     }, [shouldDisableParallax]);
 
     const footerSections = [

@@ -8,6 +8,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useResponsive } from "../hooks/use-responsive";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Navbar = () => {
     const navbarRef = useRef<HTMLElement>(null);
     const { shouldReduceMotion, shouldDisableEffects, isMobile } = useResponsive();
@@ -16,6 +18,8 @@ export const Navbar = () => {
     useEffect(() => {
         // Skip GSAP animations on mobile for performance
         if (shouldReduceMotion) return;
+
+        let scrollTrigger: ScrollTrigger | undefined;
         
         const ctx = gsap.context(() => {
             // Subtle parallax effect for logo icon
@@ -39,7 +43,7 @@ export const Navbar = () => {
 
             // Scroll-based navbar background changes
             if (!shouldDisableEffects) {
-                ScrollTrigger.create({
+                scrollTrigger = ScrollTrigger.create({
                     start: "top top",
                     end: "+=100",
                     onUpdate: (self) => {
@@ -63,7 +67,10 @@ export const Navbar = () => {
 
         }, navbarRef);
 
-        return () => ctx.revert();
+        return () => {
+            scrollTrigger?.kill();
+            ctx.revert();
+        };
     }, [shouldReduceMotion, shouldDisableEffects]);
 
     return (

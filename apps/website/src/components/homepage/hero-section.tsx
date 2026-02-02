@@ -17,21 +17,30 @@ export const HeroSection = () => {
   const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const ctaButtons = Array.from(document.querySelectorAll('.cta-button'));
+    const listeners = ctaButtons.map((button) => {
+      const onEnter = () => {
+        gsap.to(button, { scale: 1.05, duration: 0.2, ease: "power2.out" });
+      };
+      const onLeave = () => {
+        gsap.to(button, { scale: 1, duration: 0.2, ease: "power2.out" });
+      };
+      button.addEventListener('mouseenter', onEnter);
+      button.addEventListener('mouseleave', onLeave);
+      return { button, onEnter, onLeave };
+    });
+
     const ctx = gsap.context(() => {
       // CTA button hover effects
-      const ctaButtons = document.querySelectorAll('.cta-button');
-      ctaButtons.forEach(button => {
-        button.addEventListener('mouseenter', () => {
-          gsap.to(button, { scale: 1.05, duration: 0.2, ease: "power2.out" });
-        });
-        button.addEventListener('mouseleave', () => {
-          gsap.to(button, { scale: 1, duration: 0.2, ease: "power2.out" });
-        });
-      });
-
     }, heroRef);
 
-    return () => ctx.revert();
+    return () => {
+      listeners.forEach(({ button, onEnter, onLeave }) => {
+        button.removeEventListener('mouseenter', onEnter);
+        button.removeEventListener('mouseleave', onLeave);
+      });
+      ctx.revert();
+    };
   }, []);
   return (
     <section ref={heroRef} className="relative overflow-hidden min-h-screen flex items-center">

@@ -21,7 +21,7 @@ export const FeatureSection = () => {
   useEffect(() => {
     setIsMounted(true);
 
-    const scroller = document.querySelector("#smooth-wrapper")
+    const scroller = document.documentElement.dataset.smoothScroll
       ? "#smooth-wrapper"
       : undefined;
 
@@ -172,7 +172,8 @@ export const FeatureSection = () => {
                 width={900}
                 height={700}
                 className="relative w-full h-full object-contain p-12"
-                priority
+                loading="lazy"
+                sizes="(min-width: 1024px) 58vw, (min-width: 768px) 58vw, 100vw"
               />
             </div>
           </div>,
@@ -208,6 +209,8 @@ export const FeatureSection = () => {
                   width={500}
                   height={300}
                   className="w-full h-full object-contain p-6"
+                  loading="lazy"
+                  sizes="100vw"
                 />
               </div>
             </div>
