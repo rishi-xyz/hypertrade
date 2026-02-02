@@ -14,6 +14,7 @@ export const DashboardSection = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const shouldRefreshRef = useRef(false);
   
   // Resize variables for super responsiveness
   let resizeTimeout: NodeJS.Timeout;
@@ -22,6 +23,10 @@ export const DashboardSection = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    const scroller = document.documentElement.dataset.smoothScroll
+      ? "#smooth-wrapper"
+      : undefined;
+
     const ctx = gsap.context(() => {
       // Subtle parallax effect for background elements
       gsap.to('.dashboard-bg-1', {
@@ -29,6 +34,7 @@ export const DashboardSection = () => {
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
+          scroller,
           start: "top bottom",
           end: "bottom top",
           scrub: 3
@@ -40,6 +46,7 @@ export const DashboardSection = () => {
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
+          scroller,
           start: "top center", // Changed from "top bottom" to "top center"
           end: "bottom top",
           scrub: 3.5
@@ -65,11 +72,12 @@ export const DashboardSection = () => {
         return Math.min(scaleX, scaleY);
       };
 
-      const targetScale = getTargetScale();
+      let targetScale = getTargetScale();
 
       // Create smooth gradual scaling animation - reach full scale when user reaches image
-      ScrollTrigger.create({
+      const scaleTrigger = ScrollTrigger.create({
         trigger: sectionRef.current,
+        scroller,
         start: "top bottom", // Start when section enters viewport
         end: "center center", // Reach full scale when image is centered
         scrub: 3, // Much slower scrub for smoother, more gradual animation
@@ -87,7 +95,8 @@ export const DashboardSection = () => {
             scale: 1 + (targetScale - 1) * easedProgress,
             y: -40 * easedProgress, // Slightly more Y movement for depth
             duration: 0.5, // Longer duration for smoother feel
-            ease: "power1.out" // Gentler easing
+            ease: "power1.out", // Gentler easing
+            overwrite: "auto"
           });
         }
       });
@@ -137,6 +146,7 @@ export const DashboardSection = () => {
           ease: "power3.out",
           scrollTrigger: {
             trigger: dashboardRef.current,
+            scroller,
             start: "top 85%",
             end: "top 60%",
             scrub: 1,
@@ -155,15 +165,8 @@ export const DashboardSection = () => {
 
       // Handle window resize for super responsiveness
       const handleResize = () => {
-        const newTargetScale = getTargetScale();
-        
-        // Update the image scale dynamically on resize
-        gsap.set('.dashboard-image', {
-          scale: newTargetScale,
-          y: -40
-        });
-        
-        // Refresh ScrollTrigger to recalculate positions
+        targetScale = getTargetScale();
+        scaleTrigger.refresh();
         ScrollTrigger.refresh();
       };
 
@@ -175,6 +178,16 @@ export const DashboardSection = () => {
       };
 
       window.addEventListener('resize', debouncedResize);
+
+      // Ensure correct initial measurements (especially with smooth scrolling + image decode)
+      if (!shouldRefreshRef.current) {
+        shouldRefreshRef.current = true;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+          });
+        });
+      }
 
     }, containerRef);
 
@@ -213,7 +226,7 @@ export const DashboardSection = () => {
         {/* Dashboard image with refined scroll animation */}
         <div
           ref={dashboardRef}
-          className="dashboard-image relative mb-12"
+          className="relative mb-12"
         >
           <div className="relative">
             {/* Refined glow effect behind dashboard */}
@@ -228,6 +241,9 @@ export const DashboardSection = () => {
                 height={800}
                 className="w-full h-auto rounded-2xl"
                 sizes="(min-width: 1024px) 1200px, 100vw"
+                onLoadingComplete={() => {
+                  ScrollTrigger.refresh();
+                }}
               />
 
               {/* Subtle overlay gradient */}
